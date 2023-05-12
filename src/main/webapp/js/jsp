@@ -1,0 +1,223 @@
+
+       <script >	
+				$(document).ready(function(){
+				   console.log("loaded")
+					$("form").submit(function(event){
+						event.preventDefault();
+						let data=new FormData(this);
+						$(".butt").hide();
+						$(".buttreset").hide();
+						$("#spin").show();
+						//send to register servlet
+						 $.ajax({
+							   url:"RegisterServlet",
+							   type:'POST',
+						       data:  data	,
+						       success: function (data, textStatus,jqHXR) {
+						    	   console.log(data);
+						    	   $(".submit-btn").show();
+						    		$(".buttreset").show();
+									$("#spin").hide();
+									
+									swal({
+										  title: "Registration Successfully!!!",
+										  text:  "Login and enjoy your shopping",
+										  icon: "success",
+										  successMode: true,
+										})
+										.then((value) => {
+										window.location="Login.jsp";
+										});
+									
+						       },
+						       error: function (jqHXR,textStatus, errorThrown) {
+						    	   console.log(jqHXR);
+						    	   $(".butt").show();
+						    	   $(".buttreset").show();
+									$("#spin").hide();
+						    	   swal("SomeThing went wrong....... try again.");
+						    	     
+						       },
+						    	   processData:false ,
+						    	   contentType:false
+						   });
+				})
+				})
+				</script>
+				
+				<script >
+		          const form=document.getElementById('myregisterform');
+		            error=false;
+		            form.addEventListener('submit',e=>{    
+		            	$(".butt").hide();
+						$(".buttreset").hide();
+						$("#spin").show();
+		            	validateForm();
+		               console.log(error)
+		               if(error==true){
+		            	   $(".butt").show();
+				    	   $(".buttreset").show();
+							$("#spin").hide();
+				    	   swal("SomeThing went wrong....... try again.");
+		                   e.preventDefault();
+		               }else{
+		            		 $.ajax({
+								   url:"RegisterServlet",
+								   type:'POST',
+							       data:  data	,
+							       success: function (data, textStatus,jqHXR) {
+							    	   console.log(data);
+							    	   $(".submit-btn").show();
+							    		$(".buttreset").show();
+										$("#spin").hide();
+										
+										swal({
+											  title: "Registration Successfully!!!",
+											  text:  "Login and enjoy your shopping",
+											  icon: "success",
+											  successMode: true,
+											})
+											.then((value) => {
+											window.location="Login.jsp";
+											});
+										
+							       },
+							       error: function (jqHXR,textStatus, errorThrown) {
+							    	   console.log(jqHXR);
+							    	   $(".butt").show();
+							    	   $(".buttreset").show();
+										$("#spin").hide();
+							    	   swal("SomeThing went wrong....... try again.");
+							    	     
+							       },
+							    	   processData:false ,
+							    	   contentType:false
+							   });
+		               }
+		               error=false;
+		            })
+		        function validateForm(){
+		            var uname=document.getElementById("username").value;
+		            var ugmail=document.getElementById("email").value;
+		            const upass=document.getElementById("password").value;
+		            var number=document.getElementById("phone").value;
+		            var regxuname=/^[a-z A-Z 0-1]{3,10}[$]/;
+		            if(uname==""){
+		                document.getElementById('pname').innerText="Please fill out this field"; 
+		                document.getElementById('pname').style.color = "red";
+		                document.getElementsByTagName('input')[0].style.borderColor="red";
+		                error=true;
+		                // return false;
+		            }
+		            else if((!regxuname.test(uname.value)) ){
+		            	  document.getElementById('pname').innerText="your name must be atleast 3 letter"; 
+		                  document.getElementById('pname').style.color = "red";
+		                  document.getElementsByTagName('input')[0].style.borderColor="red";
+		                  error=true;
+		            }
+		            else{ error= false;}
+		            
+		         
+		            var regexemail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		            if(ugmail==""){
+		              document.getElementById('pmail').innerText="provide the mail";
+		                document.getElementById('pmail').style.color = "red";
+		                document.getElementsByTagName('input')[1].style.borderColor="red";
+		                error=true;
+		            } 
+		            else if(!regxpass.test(upass.value)){
+		            	   document.getElementById('pmail').innerText="provide the valid mail";
+		                   document.getElementById('pmail').style.color = "red";
+		                   document.getElementsByTagName('input')[1].style.borderColor="red";
+		                error=true;
+		            }
+		            var regxpass=/^[a-z A-Z 0-1]*[$]/;
+		            if(upass==""){
+		            	  document.getElementById('ppass').innerText="Please fill out this field"; 
+		                  document.getElementById('ppass').style.color = "red";
+		                  document.getElementsByTagName('input')[2].style.borderColor="red";
+		               error=true;
+		            }
+		            else if((!regxpass.test(upass.value)) || (upass.length>=5 && upass.length<=8)){
+		                document.getElementById('ppass').innerText="your password must be atleast 5 and atmost 8"; 
+		                document.getElementById('ppass').style.color = "red";
+		                document.getElementsByTagName('input')[2].style.borderColor="red";
+		                error=true;
+		            }
+		            var regxnumber=/^[98][0-9]{8}$/;
+		            if(number==""){
+		            	  document.getElementById('pphone').innerText="please provide your phone number "; 
+		                  document.getElementById('pphone').style.color = "red";
+		                  document.getElementsByTagName('input')[3].style.borderColor="red";
+		                  error=true;
+		            }
+		            else if(!regxnumber.test(number.value)) {
+		            	 document.getElementById('pphone').innerText="please provide valid  phone number"; 
+		                 document.getElementById('pphone').style.color = "red";
+		                 document.getElementsByTagName('input')[3].style.borderColor="red";
+		                 error=true;
+		            }
+		            // return true;
+		        }
+		            </script>
+		            	$(document).ready(function(){
+				   console.log("loaded")
+					$("form").submit(function(event){
+						event.preventDefault();
+						let data=new FormData(this);
+						$(".butt").hide();
+						$(".buttreset").hide();
+						$("#spin").show();
+						//send to register servlet
+						 $.ajax({
+							   url:"RegisterServlet",
+							   type:'POST',
+						       data:  data	,
+						       success: function (data, textStatus,jqHXR) {
+						    	   console.log(data);
+						    	   $(".submit-btn").show();
+						    		$(".buttreset").show();
+									$("#spin").hide();
+									
+									swal({
+										  title: "Registration Successfully!!!",
+										  text:  "Login and enjoy your shopping",
+										  icon: "success",
+										  successMode: true,
+										})
+										.then((value) => {
+										window.location="Login.jsp";
+										});
+									
+						       },
+						       error: function (jqHXR,textStatus, errorThrown) {
+						    	   console.log(jqHXR);
+						    	   $(".butt").show();
+						    	   $(".buttreset").show();
+									$("#spin").hide();
+						    	   swal("SomeThing went wrong....... try again.");
+						    	     
+						       },
+						    	   processData:false ,
+						    	   contentType:false
+						   });
+				})
+				})
+				////cnfrm pass
+				 beforeSend: function () {
+                    $('#submitbtn').html('<i class="fa-solid fa-spinner fa-spin"></i>');
+                    $('#submitbtn').attr("disabled", true);
+                    $('#submitbtn').css({ "border-radius": "50%" });
+                },
+                  complete: function () {
+                  setTimeout(function () {
+                     $('#myform').trigger("reset");
+                       $('#submitbtn').html('Submit');
+                        $('#submitbtn').attr("disabled", false);
+                        $('#submitbtn').css({ "border-radius": "4px" });
+                           }, 50000);
+                          }
+				
+			
+
+			
